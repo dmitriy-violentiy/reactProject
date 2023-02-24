@@ -10,11 +10,8 @@ const MyPosts = () => {
             New post
          </div>
          <div className={classes.posts}>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            <Post message="Hi! How are you?" like="77"/>
+            <Post message="I'm okey!" like="89"/>
          </div>
       </div>
    )
