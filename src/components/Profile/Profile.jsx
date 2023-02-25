@@ -4,7 +4,7 @@ import classes from './Profile.module.css'
 
 const Profile = () => {
    return (
-      <div className={classes.content}>
+      <div>
       <div>
          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpLxFjUcaAweJbzadOhLFqKGAX9zq-t2tp2TYqxl4cdOhlSlupOqt6nKB8mihSw2HbX4s&usqp=CAU"/>
       </div>
