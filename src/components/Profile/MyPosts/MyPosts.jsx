@@ -4,10 +4,17 @@ import Post from "./Post/Post";
 
 const MyPosts = () => {
 
-   let postsData = [
+   let posts = [
       {id: 1, messege: "Hi! How are you?", likesCount: 45},
       {id: 2, messege: "I'm okey!", likesCount: 77},
    ]
+
+   //создали новый массив объектов на основе массива posts, который выведет столько постов, сколько придет 
+   let postsElements = posts.map( (post) => {
+      return(
+         <Post message={post.messege} like={post.likesCount}/>
+      )
+   } )
 
    return (
       <div className={classes.postsBlock}>
@@ -21,8 +28,9 @@ const MyPosts = () => {
             </div>
          </div>
          <div className={classes.posts}>
-            <Post message={postsData[0].messege} like={postsData[0].likesCount}/>
-            <Post message={postsData[1].messege} like={postsData[1].likesCount}/>
+            {
+               postsElements
+            }
          </div>
       </div>
    )
