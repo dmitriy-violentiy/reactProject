@@ -2,15 +2,10 @@ import React from "react";
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
 
-const MyPosts = () => {
-
-   let posts = [
-      {id: 1, messege: "Hi! How are you?", likesCount: 45},
-      {id: 2, messege: "I'm okey!", likesCount: 77},
-   ]
+const MyPosts = (props) => {
 
    //создали новый массив объектов на основе массива posts, который выведет столько постов, сколько придет 
-   let postsElements = posts.map( (post) => {
+   let postsElements = props.posts.map( (post) => {
       return(
          <Post message={post.messege} like={post.likesCount}/>
       )
