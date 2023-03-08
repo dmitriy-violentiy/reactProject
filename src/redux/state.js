@@ -6,6 +6,7 @@ let state = {
       { id: 1, messege: "Hi! How are you?", likesCount: 45 },
       { id: 2, messege: "I'm okey!", likesCount: 77 },
     ],
+    newPostText: 'add new text'
   },
   dialogsPage: {
     dialogs: [
@@ -38,14 +39,20 @@ let state = {
   },
 };
 
-export let addPost = (postMessage) => {
+export let addPost = () => {
   let newPost = {
     id: 5,
-    messege: postMessage,
+    messege: state.profilePage.newPostText,
     likesCount: 1,
   };
   state.profilePage.posts.push(newPost);
+  state.profilePage.newPostText = '';
   rerenderEntireTree(state);
 };
+
+export let updateNewPostText = (newText) => {
+   state.profilePage.newPostText = newText      //присваимваем новое значение в state, которое получили от пользователя
+   rerenderEntireTree(state);
+ };
 
 export default state;
