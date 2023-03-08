@@ -15,6 +15,18 @@
    padding: 10px;
 }  
 
-.message {
+.user {
+   display: flex;
+   justify-content: flex-start;
+}
 
+.userAvatar img{
+   width: 40px;
+   border-radius: 50%;
+   margin-right: 8px;
+}
+
+.addMessage {
+   padding-left: 10px;
+   padding-bottom: 10px;
 }
