@@ -25,6 +25,7 @@ let state = {
       { id: 5, messege: "By" },
       { id: 6, messege: "Maybe..." },
     ],
+    newMessageText: 'add new message'
   },
   friendsPage: {
     friends: [
@@ -39,6 +40,9 @@ let state = {
   },
 };
 
+
+window.state = state
+
 export let addPost = () => {
   let newPost = {
     id: 5,
@@ -50,9 +54,25 @@ export let addPost = () => {
   rerenderEntireTree(state);
 };
 
+export let addMessage = () => {
+   let newMessage = {
+      id: 7,
+      messege: state.dialogsPage.newMessageText          //сюда заносится значение внесенное пользователем
+   }
+   state.dialogsPage.messages.push(newMessage)     //в конец массива пушим(добавляем) новый элемент
+   state.dialogsPage.newMessageText = ''
+   rerenderEntireTree(state);
+}
+
 export let updateNewPostText = (newText) => {
    state.profilePage.newPostText = newText      //присваимваем новое значение в state, которое получили от пользователя
    rerenderEntireTree(state);
  };
+
+export let updateNewMessageText = (newText) => {
+   state.dialogsPage.newMessageText = newText      //присваимваем новое значение в state, которое получили от пользователя
+   rerenderEntireTree(state);
+ };
+
 
 export default state;

@@ -5,23 +5,30 @@ import Message from "./Message/Message"
 
 const Dialogs = (props) => {
 
-   let dialogsElements = props.state.dialogs.map( (dialog) => { 
+   let dialogsElements = props.dialogsPage.dialogs.map( (dialog) => { 
       return(
          <DialogItem name={dialog.name} id={dialog.id}/>
       ) 
    }) 
 
-   let messagesElements = props.state.messages.map( (message) => {
+   let messagesElements = props.dialogsPage.messages.map( (message) => {
       return(
          <Message message={message.messege} />
       )
    } )
 
 
-   let newMessageArea = React.createRef();
+   let newMessageArea = React.createRef();      //создаем ссылку, которая будет ссылаться на элемент в который поль-ль вводит текст (алерт). В alert через ref добавим эту ссылку
+   
+   
    let addMessage = () => {
+     /*  let text = newMessageArea.current.value;  */  //считываем, что ввел пользователь в алерт, с помощью созданноый ссылки. Стерли т.к. значение введенное и так уже сидит в ыефеу
+      props.addMessage()
+   }
+
+   let onMessageChange = () => {
       let text = newMessageArea.current.value;
-      alert(text)
+      props.updateNewMessageText(text)
    }
 
    
@@ -42,7 +49,7 @@ const Dialogs = (props) => {
 
          <div className={classes.addMessage}>
             <div>
-               <textarea ref={newMessageArea}></textarea>
+               <textarea ref={newMessageArea} onChange={onMessageChange} value={props.dialogsPage.newMessageText} />
             </div>
             <div>
                <button onClick={ addMessage }>Add message </button>
