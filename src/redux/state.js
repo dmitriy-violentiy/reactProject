@@ -1,4 +1,6 @@
-import { rerenderEntireTree } from "../render";
+let rerenderEntireTree = () => {
+   console.log("State changed")
+}
 
 let state = {
   profilePage: {
@@ -54,7 +56,7 @@ export let addPost = () => {
   rerenderEntireTree(state);
 };
 
-export let addMessage = () => {
+export const addMessage = () => {
    let newMessage = {
       id: 7,
       messege: state.dialogsPage.newMessageText          //сюда заносится значение внесенное пользователем
@@ -64,15 +66,19 @@ export let addMessage = () => {
    rerenderEntireTree(state);
 }
 
-export let updateNewPostText = (newText) => {
+export const updateNewPostText = (newText) => {
    state.profilePage.newPostText = newText      //присваимваем новое значение в state, которое получили от пользователя
    rerenderEntireTree(state);
  };
 
-export let updateNewMessageText = (newText) => {
+export const updateNewMessageText = (newText) => {
    state.dialogsPage.newMessageText = newText      //присваимваем новое значение в state, которое получили от пользователя
    rerenderEntireTree(state);
  };
+
+ export const subscribe = (observer) => {
+   rerenderEntireTree = observer;               //наблюдатель (observer)
+ }
 
 
 export default state;
