@@ -1,4 +1,5 @@
 import React from "react"
+import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/state"
 import DialogItem from "./DialogItem/DialogItem"
 import classes from './Dialogs.module.css'
 import Message from "./Message/Message"
@@ -19,16 +20,17 @@ const Dialogs = (props) => {
 
 
    let newMessageArea = React.createRef();      //создаем ссылку, которая будет ссылаться на элемент в который поль-ль вводит текст (алерт). В alert через ref добавим эту ссылку
+
    
    
    let addMessage = () => {
      /*  let text = newMessageArea.current.value;  */  //считываем, что ввел пользователь в алерт, с помощью созданноый ссылки. Стерли т.к. значение введенное и так уже сидит в state
-      props.dispatch({ type: 'ADD-MESSAGE' })
+      props.dispatch(addMessageActionCreator())
    }
 
    let onMessageChange = () => {
       let text = newMessageArea.current.value;
-      props.dispatch({ type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text })
+      props.dispatch(updateNewMessageTextActionCreator(text))
    }
 
    
