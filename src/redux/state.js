@@ -37,46 +37,46 @@ let store = {
           { id: 6, name: "Kirill" },
         ],
       },
-    },
-    getState() {
+   },
+   _callSubscriber() {
+      console.log("State changed")
+   },
+
+   getState() {
       return(
          this._state
       )
-    },
-    _callSubscriber() {
-      console.log("State changed")
    },
-   addPost() {
-      let newPost = {
-        id: 5,
-        messege: this._state.profilePage.newPostText,
-        likesCount: 1,
-      };
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostText = '';
-      this._callSubscriber( this._state);
-    },
-    addMessage() {
-      let newMessage = {
-         id: 7,
-         messege:  this._state.dialogsPage.newMessageText          //сюда заносится значение внесенное пользователем
-      }
-      this._state.dialogsPage.messages.push(newMessage)     //в конец массива пушим(добавляем) новый элемент
-      this._state.dialogsPage.newMessageText = ''
-      this._callSubscriber( this._state);
-   },
-   updateNewPostText(newText) {
-      this._state.profilePage.newPostText = newText      //присваимваем новое значение в state, которое получили от пользователя
-      this._callSubscriber( this._state);
-    },
-    updateNewMessageText(newText) {
-      this._state.dialogsPage.newMessageText = newText      //присваимваем новое значение в state, которое получили от пользователя
-      this._callSubscriber( this._state);
-    },
    subscribe(observer) {
       this._callSubscriber = observer;               //наблюдатель (observer)
-    }
+   },
 
+   dispatch(action) {      //action - это объект, который показывает, что мы хотим сделать
+      if(action.type === 'ADD-POST'){
+         let newPost = {
+            id: 5,
+            messege: this._state.profilePage.newPostText,
+            likesCount: 1,
+         };
+         this._state.profilePage.posts.push(newPost);
+         this._state.profilePage.newPostText = '';
+         this._callSubscriber( this._state);
+   } else if(action.type === 'UPDATE-NEW-POST-TEXT') {
+         this._state.profilePage.newPostText = action.newText      //присваимваем новое значение в state, которое получили от пользователя
+         this._callSubscriber( this._state);
+   } else if(action.type === 'ADD-MESSAGE') {
+         let newMessage = {
+            id: 7,
+            messege:  this._state.dialogsPage.newMessageText          //сюда заносится значение внесенное пользователем
+      }
+         this._state.dialogsPage.messages.push(newMessage)     //в конец массива пушим(добавляем) новый элемент
+         this._state.dialogsPage.newMessageText = ''
+         this._callSubscriber( this._state);
+   } else if(action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+         this._state.dialogsPage.newMessageText = action.newText      //присваимваем новое значение в state, которое получили от пользователя
+         this._callSubscriber( this._state);
+   } 
+}
 }
 
 export default store;

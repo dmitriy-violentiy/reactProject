@@ -16,13 +16,13 @@ const MyPosts = (props) => {
 
    //функция, которая считывает, что ввел пользователь
    let addPost = () => {
-      props.addPost()
+      props.dispatch({ type: 'ADD-POST' })
      /*  props.updateNewPostText('') */   //зачистим в BLL
    }
 
    let onPostChange = () => {
       let text = newPostElement.current.value;
-      props.updateNewPostText(text)
+      props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
    }
 
    return (

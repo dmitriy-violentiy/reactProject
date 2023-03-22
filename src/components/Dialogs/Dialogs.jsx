@@ -23,12 +23,12 @@ const Dialogs = (props) => {
    
    let addMessage = () => {
      /*  let text = newMessageArea.current.value;  */  //считываем, что ввел пользователь в алерт, с помощью созданноый ссылки. Стерли т.к. значение введенное и так уже сидит в state
-      props.addMessage()
+      props.dispatch({ type: 'ADD-MESSAGE' })
    }
 
    let onMessageChange = () => {
       let text = newMessageArea.current.value;
-      props.updateNewMessageText(text)
+      props.dispatch({ type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text })
    }
 
    

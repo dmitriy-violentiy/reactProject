@@ -13,14 +13,14 @@ let rerenderEntireTree = (state) => {
    
    root.render(
       <React.StrictMode>
-         <App state={state} addPost={store.addPost.bind(store)} updateNewPostText={store.updateNewPostText.bind(store)} addMessage={store.addMessage.bind(store)} updateNewMessageText={store.updateNewMessageText.bind(store)}/>
+         <App state={state} dispatch={store.dispatch.bind(store)}/>
       </React.StrictMode>
    );
 }
 
 rerenderEntireTree(store.getState())
 
-store.subscribe(rerenderEntireTree)       //вызываем функцию которая находится в state и передаем в нее функцию rerender
+store.subscribe(rerenderEntireTree)       //вызываем функцию которая находится в store и передаем в нее функцию rerender
 
 /* 
 <App posts={posts} dialogs={dialogs} messages={messages}/> */
