@@ -6,13 +6,15 @@ import Message from "./Message/Message"
 
 const Dialogs = (props) => {
 
-   let dialogsElements = props.dialogsPage.dialogs.map( (dialog) => { 
+   let state = props.dialogsPage
+
+   let dialogsElements = state.dialogs.map( (dialog) => { 
       return(
          <DialogItem name={dialog.name} id={dialog.id}/>
       ) 
    }) 
 
-   let messagesElements = props.dialogsPage.messages.map( (message) => {
+   let messagesElements = state.messages.map( (message) => {
       return(
          <Message message={message.messege} />
       )
@@ -24,13 +26,12 @@ const Dialogs = (props) => {
    
    
    let addMessage = () => {
-     /*  let text = newMessageArea.current.value;  */  //считываем, что ввел пользователь в алерт, с помощью созданноый ссылки. Стерли т.к. значение введенное и так уже сидит в state
-      props.dispatch(addMessageActionCreator())
+      props.addMessage()
    }
 
    let onMessageChange = () => {
       let text = newMessageArea.current.value;
-      props.dispatch(updateNewMessageTextActionCreator(text))
+      props.updateNewMessageTextActionCreator(text)
    }
 
    
