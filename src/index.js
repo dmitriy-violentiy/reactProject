@@ -4,6 +4,7 @@ import store from "./redux/redux-store";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import StoreContext, { Provider } from "./StoreContext";
 
 /* import { addPost, updateNewPostText, addMessage, updateNewMessageText } from "./redux/state.js"; */
 
@@ -13,7 +14,9 @@ let rerenderEntireTree = (state) => {
    
    root.render(
       <React.StrictMode>
-         <App state={state} dispatch={store.dispatch.bind(store)} store={store}/>
+         <Provider store={store}>
+            <App />
+         </Provider>
       </React.StrictMode>
    );
 }
