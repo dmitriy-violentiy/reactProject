@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-let rerenderEntireTree = (state) => {
+/* let rerenderEntireTree = (state) => { */
    
    root.render(
       <React.StrictMode>
@@ -19,14 +19,14 @@ let rerenderEntireTree = (state) => {
          </Provider>
       </React.StrictMode>
    );
-}
+/* } */
 
-rerenderEntireTree(store.getState())
+/* rerenderEntireTree(store.getState()) */
 
-store.subscribe(() => {
+/* store.subscribe(() => {
    let state = store.getState()
    rerenderEntireTree(state)
-})       //вызываем функцию которая находится в store и передаем в нее функцию rerender
+})   */     //вызываем функцию которая находится в store и передаем в нее функцию rerender
 
 /* 
 <App posts={posts} dialogs={dialogs} messages={messages}/> */
