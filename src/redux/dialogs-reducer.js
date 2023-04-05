@@ -22,32 +22,42 @@ let initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_MESSAGE:
-      let newMessage = {
-        id: 7,
-        messege: state.newMessageText, //сюда заносится значение внесенное пользователем
-      };
-      state.messages.push(newMessage); //в конец массива пушим(добавляем) новый элемент
-      state.newMessageText = "";
-      return state;
-    case UPDATE_NEW_MESSAGE_TEXT:
-      state.newMessageText = action.newText;
-      return state;
-    default:
-      return state;
-  }
+
+   switch (action.type) {
+      case ADD_MESSAGE: 
+         let text = state.newMessageText
+         let newMessage = {
+            id: 7,
+            messege: text,
+         }
+      return {
+            ...state,
+            newMessageText: '',
+            messages: [...state.messages, newMessage]      //скопировали массив из главного state и добавили в него новый объект
+         }
+      
+      case UPDATE_NEW_MESSAGE_TEXT: 
+         return {
+            ...state,
+            newMessageText: action.newText
+      
+      }
+ default: 
+   return state;
+
+}
 };
+
 
 export const addMessageActionCreator = () => {
   return {
-    type: ADD_MESSAGE,
+    type: ADD_MESSAGE
   };
 };
 export const updateNewMessageTextActionCreator = (text) => {
   return {
     type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text,
+    newText: text
   };
 };
 

@@ -7,7 +7,7 @@ const MyPosts = (props) => {
    //создали новый массив объектов на основе массива posts, который выведет столько постов, сколько придет 
    let postsElements = props.posts.map( (post) => {
       return(
-         <Post message={post.messege} like={post.likesCount}/>
+         <Post message={post.messege} like={post.likesCount} key={post.id}/>
       )
    } )
 
@@ -21,7 +21,7 @@ const MyPosts = (props) => {
 
    let onPostChange = () => {
       let text = newPostElement.current.value;
-      props.updateNewPostText(text)
+      props.updateNewPostTextActionCreator(text)
    }
 
    return (

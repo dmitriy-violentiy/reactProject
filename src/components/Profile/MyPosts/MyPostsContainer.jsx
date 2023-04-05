@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addPostActionCreator, updateNewPostTextActionCreator } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {            //перерисовываем компоненту myPosts когда изменится posts
    return {
       posts: state.profilePage.posts,
       newPostText: state.profilePage.newPostText
@@ -22,6 +22,6 @@ const mapDispatchToProps = (dispatch) => {
    }
 }
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)      //каждый раз когда происходят изменения в state запускается эта функция
 
 export default MyPostsContainer;
