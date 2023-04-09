@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Profile from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 const App = (props) => {
@@ -24,7 +25,8 @@ const App = (props) => {
                <Route path="/news" element={<News />} />
                <Route path="/Music" element={<Music />} />
                <Route path="/settings" element={<Settings />} />
-               <Route path="/friends/*" element={<FriendsContainer /* state={props.store} *//>} />
+               <Route path="/friends/*" element={<FriendsContainer/>} />
+               <Route path="/users/*" element={<UsersContainer/>} />
             </Routes>
          </div>
          </div>
