@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { followActionCreator, setCurrentPageActionCreator, setUsersActionCreator, setUsersTotalCountActionCreator, toggleIsFetchingActionCreator, unfollowActionCreator } from '../../redux/users-reducer';
+import { follow, setCurrentPage, setUsers, setTotalUsersCount, toggleIsFetching, unfollow } from '../../redux/users-reducer';
 import axios from "axios";
 import Users from './Users';
 import preloader from '../../assets/images/preloader.gif';
@@ -10,8 +10,8 @@ class UsersContainer extends React.Component {
    componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
       this.props.toggleIsFetching(true)      //когда еще ответ запроса не пришел, true (т.е. gif прелоадера отрабатывает)
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {     //так при загрузке получаем пользователей
-      this.props.toggleIsFetching(false)     //когда ответ на запрос пришел, выключаем gif прелоадера
-      this.props.setUsers(response.data.items)
+         this.props.toggleIsFetching(false)     //когда ответ на запрос пришел, выключаем gif прелоадера
+         this.props.setUsers(response.data.items)
          this.props.setTotalUsersCount(response.data.totalCount)
       })
    }
@@ -50,7 +50,7 @@ let mapStateToProps = (state) => {
    }
 }
 
-let mapDispatchToProps = (dispatch) => {
+/* let mapDispatchToProps = (dispatch) => {
    return {
       follow: (userId) => {
          dispatch(followActionCreator(userId))
@@ -71,6 +71,13 @@ let mapDispatchToProps = (dispatch) => {
          dispatch(toggleIsFetchingActionCreator(isFetching))
       }
    }
-}
+} */
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+   follow,        //follow: followActionCreator (так было раньше. Сократили код)
+   unfollow,
+   setUsers,
+   setCurrentPage,
+   setTotalUsersCount,
+   toggleIsFetching
+})(UsersContainer)
