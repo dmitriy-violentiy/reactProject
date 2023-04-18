@@ -21,7 +21,8 @@ const App = (props) => {
          <div className="app-wrapper-content">
             <Routes>
                <Route path="/dialogs/*" element={<DialogsContainer />} />
-               <Route path="/profile/*" element={<ProfileContainer />} />
+               <Route path='/profile/:userId?' element={<ProfileContainer />} />    /* знак ? означает, что если нет userId то выведем просто profile */
+               {/* <Route path="/profile/*" element={<ProfileContainer />} /> */}
                <Route path="/news" element={<News />} />
                <Route path="/Music" element={<Music />} />
                <Route path="/settings" element={<Settings />} />

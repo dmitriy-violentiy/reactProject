@@ -12,10 +12,11 @@ const ProfileInfo = (props) => {
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpLxFjUcaAweJbzadOhLFqKGAX9zq-t2tp2TYqxl4cdOhlSlupOqt6nKB8mihSw2HbX4s&usqp=CAU"/>
          </div>
          <div className={classes.descriptionBlock}>
-            <img src={props.profile.photos.large}/>
+            <img src={props.profile.photos.small !== null ? props.profile.photos.large : 'https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector.png' } width='150px'/>
             <div><b>Полное имя:</b> {props.profile.fullName}</div>
             <div><b>Про меня:</b> {props.profile.aboutMe}</div>
             <div><b>Мой вк:</b> {props.profile.contacts.vk}</div>
+            <div><b>Статус:</b> { props.profile.lookingForAJob ? 'в поисках работы' : 'бездельничаю' } </div>
          </div>
       </div>
    )
