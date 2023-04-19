@@ -8,7 +8,11 @@ import Preloader from '../common/Preloader/Preloader';
 class UsersContainer extends React.Component {
    componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
       this.props.toggleIsFetching(true)      //когда еще ответ запроса не пришел, true (т.е. gif прелоадера отрабатывает)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {     //так при загрузке получаем пользователей
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, 
+      {
+         withCredentials: true
+      })
+      .then(response => {     //так при загрузке получаем пользователей
          this.props.toggleIsFetching(false)     //когда ответ на запрос пришел, выключаем gif прелоадера
          this.props.setUsers(response.data.items)
          this.props.setTotalUsersCount(response.data.totalCount)
@@ -18,7 +22,11 @@ class UsersContainer extends React.Component {
    onPageChanged = (pageNumber) => {
       this.props.setCurrentPage(pageNumber)
       this.props.toggleIsFetching(true) 
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {     //так при загрузке получаем пользователей
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+      {
+         withCredentials: true
+      })
+      .then(response => {     //так при загрузке получаем пользователей
          this.props.toggleIsFetching(false)    
          this.props.setUsers(response.data.items)
       })
