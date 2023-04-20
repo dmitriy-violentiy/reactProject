@@ -4,6 +4,7 @@ const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 
 let initialState = {
@@ -11,7 +12,8 @@ let initialState = {
       pageSize: 5,
       totalUsersCount: 0,
       currentPage: 1,
-      isFetching: true
+      isFetching: true,
+      followingInProgress: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -42,6 +44,14 @@ const usersReducer = (state = initialState, action) => {
       }
       case TOGGLE_IS_FETCHING: {
          return {...state, isFetching: action.isFetching}
+      }
+      case TOGGLE_IS_FOLLOWING_PROGRESS: {
+         return {
+            ...state, 
+            followingInProgress: action.isFetching ?
+               [...state.followingInProgress, action.userId] :             //если true то деструктуризируем массив и в конец дописываем id которая приходит в action
+               state.followingInProgress.filter(id => id != action.userId)    //если false, то с помощью фильтрцаии создаем копию нового массива и фильтруем
+         }
       }
       default: 
          return state
@@ -88,6 +98,14 @@ export const toggleIsFetching = (isFetching) => {
    return {
       type: TOGGLE_IS_FETCHING,
       isFetching
+   }
+}
+
+export const toggleFollowingProgress = (isFetching, userId) => { 
+   return {
+      type: TOGGLE_IS_FOLLOWING_PROGRESS,
+      isFetching,
+      userId
    }
 }
 

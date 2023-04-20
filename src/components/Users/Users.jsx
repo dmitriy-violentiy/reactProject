@@ -3,6 +3,7 @@ import styles from "./users.module.css"
 import userPhoto from "../../assets/images/avatar.png"
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { usersAPI } from "../../api/api";
 
 let  Users = (props) => {
    
@@ -36,8 +37,8 @@ let  Users = (props) => {
                      </div>
                      <div>
                         { users.followed ? 
-                           <button onClick={() => {
-                              
+                           <button disabled={props.followingInProgress.some(id => id === users.id)} onClick={() => {  //дисаблим кнопку пока идет запрос
+                              props.toggleFollowingProgress(true, users.id)
                               axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {   //для отписки шлем delete запрос
                                  withCredentials: true,  //авторизованность
                                  headers: {
@@ -48,11 +49,12 @@ let  Users = (props) => {
                                  if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил отписку
                                     props.unfollow(users.id)
                                  }
+                                 props.toggleFollowingProgress(false, users.id)   //разблокируем кнопку когда ответ пришел
                               })
 
                            }}>unfollow</button> : 
-                           <button onClick={() => {
-                              
+                           <button disabled={props.followingInProgress.some(id => id === users.id)} onClick={() => {
+                              props.toggleFollowingProgress(true, users.id)
                               axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {}, {
                                  withCredentials: true,
                                  headers: {
@@ -63,6 +65,7 @@ let  Users = (props) => {
                                  if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
                                     props.follow(users.id)
                                  }
+                                 props.toggleFollowingProgress(false, users.id)
                               })
                               
                               }}>follow</button> }
