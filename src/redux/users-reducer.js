@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api"
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -13,7 +15,7 @@ let initialState = {
       totalUsersCount: 0,
       currentPage: 1,
       isFetching: true,
-      followingInProgress: []
+      followingInProgress: []    //for disabled button
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -59,14 +61,14 @@ const usersReducer = (state = initialState, action) => {
 
 } 
 
-export const follow = (userId) => {   //передаем userId для того чтобы менять значение follow/unfollow
+export const followSuccess = (userId) => {   //передаем userId для того чтобы менять значение follow/unfollow
    return {
       type: FOLLOW,
       userId
    }
 }
 
-export const unfollow = (userId) => { 
+export const unfollowSuccess = (userId) => { 
    return {
       type: UNFOLLOW,
       userId
@@ -106,6 +108,45 @@ export const toggleFollowingProgress = (isFetching, userId) => {
       type: TOGGLE_IS_FOLLOWING_PROGRESS,
       isFetching,
       userId
+   }
+}
+
+export const getUsers = (currentPage, pageSize) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
+   return (dispatch) => {
+      dispatch(toggleIsFetching(true))      //когда еще ответ запроса не пришел, true (т.е. gif прелоадера отрабатывает)
+         
+      usersAPI.getUsers(currentPage, pageSize).then(data => {     //так при загрузке получаем пользователей
+         dispatch(setCurrentPage(currentPage))
+         dispatch(toggleIsFetching(false))     //когда ответ на запрос пришел, выключаем gif прелоадера
+         dispatch(setUsers(data.items))
+         dispatch(setTotalUsersCount(data.totalCount))
+      })
+   }
+}
+
+export const follow = (userId) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
+   return (dispatch) => {
+      dispatch(toggleFollowingProgress(true, userId))
+      usersAPI.follow(userId)  //обращаемся через thunk
+         .then(response => {     //запрос на подписку
+            if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
+               dispatch(followSuccess(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+      })
+   }
+}
+
+export const unfollow = (userId) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
+   return (dispatch) => {
+      dispatch(toggleFollowingProgress(true, userId))
+      usersAPI.unfollow(userId)  //обращаемся через thunk
+         .then(response => {     //запрос на подписку
+            if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
+               dispatch(unfollowSuccess(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+      })
    }
 }
 
