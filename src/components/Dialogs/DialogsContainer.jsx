@@ -2,11 +2,12 @@ import React from "react"
 import { connect } from "react-redux"
 import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogs-reducer"
 import Dialogs from "./Dialogs"
+import { Navigate } from "react-router-dom"
+import { withAuthRedirect } from "../../hoc/withAuthRedirect"
 
 const mapStateToProps = (state) => {
    return {
-      dialogsPage: state.dialogsPage,
-      isAuth: state.auth.isAuth
+      dialogsPage: state.dialogsPage
    }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
    }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+let AuthRedirectComponent = withAuthRedirect(Dialogs)    //с  помощью hoc проверяем авторизованность пользователя
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
 export default DialogsContainer;

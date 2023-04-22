@@ -5,6 +5,7 @@ import axios from "axios";
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import { usersAPI } from '../../api/api';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 class UsersContainer extends React.Component {
    componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
@@ -31,6 +32,8 @@ class UsersContainer extends React.Component {
    }
 }
 
+let withRedirect = withAuthRedirect(UsersContainer)   //с  помощью hoc проверяем авторизованность пользователя
+
 let mapStateToProps = (state) => {
    return {
       users: state.usersPage.users,
@@ -48,4 +51,4 @@ export default connect(mapStateToProps, {
    setCurrentPage,
    toggleFollowingProgress,
    getUsers
-})(UsersContainer)
+})(withRedirect)
