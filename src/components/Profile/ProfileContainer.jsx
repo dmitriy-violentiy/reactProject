@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import axios from "axios";
 import { connect } from "react-redux";
 import {getUserProfile} from "../../redux/profile-reducer"
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
 
@@ -29,6 +29,8 @@ class ProfileContainer extends React.Component {
 	} */
    
    render() {
+      if (!this.props.isAuth) return <Navigate to={'/login'}/>    //редиректим если не залогинен
+      
       return (
          <Profile {...this.props} profile={this.props.profile}/>  //используем ... т.к. хотим передать сразу все пропсы дальше
          )
@@ -36,7 +38,8 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-   profile: state.profilePage.profile
+   profile: state.profilePage.profile,
+   isAuth: state.auth.isAuth
 })
 
 //создадим свой withRouter т.к. в современных версиях он не поддерживается

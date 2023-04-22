@@ -8,7 +8,7 @@ import { usersAPI } from '../../api/api';
 
 class UsersContainer extends React.Component {
    componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
-      this.props.getUsers(this.props.currentPage, this.props.pageSize)  //берем из users-reducer. Присвоили в eport
+      this.props.getUsers(this.props.currentPage, this.props.pageSize)  //берем из users-reducer thunk. Присвоили в export
    }
 
    onPageChanged = (pageNumber) => {
