@@ -35,8 +35,6 @@ const Dialogs = (props) => {
 
    if (!props.isAuth) return <Navigate to={'/login'}/>       //редиректим если не залогинен
 
-   
-
    return (
       <div className={classes.dialogs}>
          <div className={classes.dialogsItems}>

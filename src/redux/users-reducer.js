@@ -124,7 +124,7 @@ export const getUsers = (currentPage, pageSize) => {     //создали thunkC
    }
 }
 
-export const follow = (userId) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
+export const follow = (userId) => {
    return (dispatch) => {
       dispatch(toggleFollowingProgress(true, userId))
       usersAPI.follow(userId)  //обращаемся через thunk
