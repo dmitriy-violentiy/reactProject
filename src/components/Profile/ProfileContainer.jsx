@@ -6,6 +6,8 @@ import {getUserProfile} from "../../redux/profile-reducer"
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import { getStatus } from "../../redux/profile-reducer";
+import { updateStatus } from "../../redux/profile-reducer";
 
 class ProfileContainer extends React.Component {
 
@@ -16,6 +18,7 @@ class ProfileContainer extends React.Component {
          userId = 2;
       }
       this.props.getUserProfile(userId)
+      this.props.getStatus(userId)
 	}
 
    /* componentDidUpdate(prevProps) {
@@ -32,13 +35,14 @@ class ProfileContainer extends React.Component {
    
    render() {
       return (
-         <Profile {...this.props} profile={this.props.profile}/>  //используем ... т.к. хотим передать сразу все пропсы дальше
+         <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>  //используем ... т.к. хотим передать сразу все пропсы дальше
          )
    }
 }
 
 let mapStateToProps = (state) => ({
-   profile: state.profilePage.profile
+   profile: state.profilePage.profile,
+   status: state.profilePage.status
 })
 
 //создадим свой withRouter т.к. в современных версиях он не поддерживается
@@ -53,7 +57,7 @@ function withRouter(Component) {
 }
 
 export default compose(
-   connect(mapStateToProps, {getUserProfile}),
+   connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
    withRouter,
    /* withAuthRedirect */
 )(ProfileContainer)
