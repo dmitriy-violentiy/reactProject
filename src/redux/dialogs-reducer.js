@@ -1,5 +1,4 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 
 let initialState = {
   dialogs: [
@@ -17,29 +16,21 @@ let initialState = {
     { id: 4, messege: "Hello" },
     { id: 5, messege: "By" },
     { id: 6, messege: "Maybe..." },
-  ],
-  newMessageText: "add new message",
+  ]
 };
 
 const dialogsReducer = (state = initialState, action) => {
 
    switch (action.type) {
       case ADD_MESSAGE: 
-         let text = state.newMessageText
+         let text = action.newMessageText
          let newMessage = {
-            id: 7,
-            messege: text,
+            id: 6,
+            messege: text
          }
       return {
             ...state,
-            newMessageText: '',
             messages: [...state.messages, newMessage]      //скопировали массив из главного state и добавили в него новый объект
-         }
-      
-      case UPDATE_NEW_MESSAGE_TEXT: 
-         return {
-            ...state,
-            newMessageText: action.newText
          }
       default: 
          return state;
@@ -48,16 +39,11 @@ const dialogsReducer = (state = initialState, action) => {
 };
 
 
-export const addMessageActionCreator = () => {
+export const addMessageActionCreator = (newMessageText) => {
   return {
-    type: ADD_MESSAGE
+    type: ADD_MESSAGE,
+    newMessageText
   };
-};
-export const updateNewMessageTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text
-  };
-};
+}
 
 export default dialogsReducer;

@@ -27,6 +27,15 @@ class ProfileStatus extends React.Component {
       })
    }
 
+   //условие, по которому заносим новый статус, если новый не равен предыдущему
+   componentDidUpdate(prevProps, prevState) {
+      if(prevProps.status !== this.props.status) {
+         this.setState({
+            status: this.props.status
+         })
+      }
+   }
+
    render() {
       return (
          //условие вывода span или input

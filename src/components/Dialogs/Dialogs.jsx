@@ -4,6 +4,7 @@ import DialogItem from "./DialogItem/DialogItem"
 import classes from './Dialogs.module.css'
 import Message from "./Message/Message"
 import { Navigate } from "react-router-dom"
+import { Field, reduxForm } from "redux-form"
 
 const Dialogs = (props) => {
    let state = props.dialogsPage
@@ -19,18 +20,8 @@ const Dialogs = (props) => {
       )
    } )
 
-
-   let newMessageArea = React.createRef();      //создаем ссылку, которая будет ссылаться на элемент в который поль-ль вводит текст (алерт). В alert через ref добавим эту ссылку
-
-   
-   
-   let onAddMessage = () => {
-      props.addMessage()
-   }
-
-   let onMessageChange = () => {
-      let text = newMessageArea.current.value;
-      props.updateNewMessageTextActionCreator(text)
+   let addNewMessage = (values) => {
+      props.addMessage(values.newMessageArea)
    }
 
    if (!props.isAuth) return <Navigate to={'/login'}/>       //редиректим если не залогинен
@@ -48,18 +39,29 @@ const Dialogs = (props) => {
             messagesElements
          }
          </div>
-
+            <AddMessageFormRedux onSubmit={ addNewMessage } />
          <div className={classes.addMessage}>
-            <div>
-               <textarea ref={newMessageArea} onChange={onMessageChange} value={props.dialogsPage.newMessageText} />
-            </div>
-            <div>
-               <button onClick={ onAddMessage }>Add message </button>
-            </div>
+
          </div>
 
       </div>
    )
 }
+
+const AddMessageForm = (props) => {
+   return (
+      <form onSubmit={props.handleSubmit}>
+         <div>
+            <Field component={"textarea"} name={"newMessageArea"} placeholder={"Enter you message"} />
+         </div>
+         <div>
+            <button>Add message </button>
+         </div>
+      </form>
+   ) 
+}
+
+const AddMessageFormRedux = reduxForm({form: "dialogAddMessageForm"})(AddMessageForm)
+
 
 export default Dialogs;

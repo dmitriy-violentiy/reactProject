@@ -15,7 +15,7 @@ class ProfileContainer extends React.Component {
 		let userId = this.props.router.params.userId;
       //укажем, что если нет userId то выведем 2-го пользователя
 		if (!userId) { 
-         userId = 2;
+         userId = 28810;
       }
       this.props.getUserProfile(userId)
       this.props.getStatus(userId)

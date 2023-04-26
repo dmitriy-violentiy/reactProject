@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { addMessageActionCreator, updateNewMessageTextActionCreator } from "../../redux/dialogs-reducer"
+import { addMessageActionCreator } from "../../redux/dialogs-reducer"
 import Dialogs from "./Dialogs"
 import { Navigate } from "react-router-dom"
 import { withAuthRedirect } from "../../hoc/withAuthRedirect"
@@ -13,12 +13,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
    return {
-      updateNewMessageTextActionCreator: (text) => {
-         let action = updateNewMessageTextActionCreator(text)
-         dispatch(action)
-      },
-      addMessage: () => {
-         dispatch(addMessageActionCreator())
+      addMessage: (newMessageArea) => {
+         dispatch(addMessageActionCreator(newMessageArea))
       }
    }
 }
