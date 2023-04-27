@@ -1,17 +1,20 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { Input } from "../common/FormsControls/FormsControls";
+import { maxLengthCreator, required } from "../../utils/validators/validators";
 
 const LoginForm = (props) => {
+   //handleSubmit пробросился автоматически при обертывании в LoginReduxForm. Он помогает перерисовываться при каждом нажатии 
    return (
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={props.handleSubmit}> 
          <div>
-            <Field placeholder={"Login"} name="login" component={"input"}/>
+            <Field placeholder={"Login"} validate={[required, maxLengthCreator(10)]} name="login" component={Input}/>
          </div>
          <div>
-            <Field placeholder={"Password"} name="password" component={"input"}/>
+            <Field placeholder={"Password"} validate={[required, maxLengthCreator(10)]} name="password" component={Input}/>
          </div>
          <div>
-            <Field type={"checkbox"} name="rememberMe" component={"input"}/> remember me
+            <Field type={"checkbox"} name="rememberMe" component={Input}/> remember me
          </div>
          <div>
             <button>Login</button>
@@ -19,7 +22,7 @@ const LoginForm = (props) => {
       </form>
    )
 }
- //даем уникальное имя форме. этот form никак не связан с глобальным form, который сидит в redux-store
+ //оборачиваем LoginForm в LoginReduxForm. Даем уникальное имя форме. Этот form никак не связан с глобальным form, который сидит в redux-store
 const LoginReduxForm = reduxForm({ form: 'login'})(LoginForm)
 
 const Login = (props) => {
