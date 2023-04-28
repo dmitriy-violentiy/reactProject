@@ -41,5 +41,12 @@ export const profileAPI = {
 export const authAPI = {
    me() {
       return instance.get(`auth/me`)
-   }
+   },
+   login(email, password, rememberMe = false) {    //если данные должны прийти извне, передаем их при объявлении
+      return instance.post(`auth/login`, {email, password, rememberMe})
+   },
+   logout() {
+      return instance.delete(`auth/login`)
+   },
+
 }
