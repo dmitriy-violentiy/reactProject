@@ -15,7 +15,7 @@ class ProfileContainer extends React.Component {
 		let userId = this.props.router.params.userId;
       //укажем, что если нет userId то выведем 2-го пользователя
 		if (!userId) { 
-         userId = 28810;
+         userId = this. props.autorizedUserId;
       }
       this.props.getUserProfile(userId)
       this.props.getStatus(userId)
@@ -30,7 +30,10 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
    profile: state.profilePage.profile,
-   status: state.profilePage.status
+   status: state.profilePage.status,
+   autorizedUserId: state.auth.userId,
+   isAuth: state.auth.isAuth
+
 })
 
 //создадим свой withRouter т.к. в современных версиях он не поддерживается
