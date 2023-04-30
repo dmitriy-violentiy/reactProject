@@ -1,21 +1,22 @@
 import React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
 import {getUserProfile} from "../../redux/profile-reducer"
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { getStatus } from "../../redux/profile-reducer";
 import { updateStatus } from "../../redux/profile-reducer";
+import withRouter from "../common/WithRouter/withRouter";
 
 class ProfileContainer extends React.Component {
 
    componentDidMount() {
 		let userId = this.props.router.params.userId;
-      //укажем, что если нет userId то выведем 2-го пользователя
+      //укажем, что если нет userId то выведем нас
 		if (!userId) { 
          userId = this. props.autorizedUserId;
+         if(!userId) {
+            this.props.router.navigate('/login');     //если userId не оказалось, редиректим на login
+         }
       }
       this.props.getUserProfile(userId)
       this.props.getStatus(userId)
@@ -35,17 +36,6 @@ let mapStateToProps = (state) => ({
    isAuth: state.auth.isAuth
 
 })
-
-//создадим свой withRouter т.к. в современных версиях он не поддерживается
-function withRouter(Component) {
-	function ComponentWithRouterProp(props) {
-		let location = useLocation();
-		let navigate = useNavigate();
-		let params = useParams();
-		return <Component {...props} router={{ location, navigate, params }} />;
-	}
-	return ComponentWithRouterProp;
-}
 
 export default compose(
    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
