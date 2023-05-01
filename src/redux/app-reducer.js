@@ -28,7 +28,7 @@ export const initializedSuccess = () => {
 
 export const initializeApp = () => (dispatch) => {
    let promise = dispatch(getAuthUserData())    //получение инициализационных данных
-   Promise.all([promise])        //поместили промис в массив на случай если их будет несколько. И когда все промисы зарезолвяться диспатчим initializedSuccess
+   Promise.all([promise])        //поместили промис в массив на случай, если их будет несколько. И когда все промисы зарезолвяться диспатчим initializedSuccess
    .then(() => {
       dispatch(initializedSuccess())
    })   

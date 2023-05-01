@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setCurrentPage, unfollow, toggleFollowingProgress, getUsers } from '../../redux/users-reducer';
+import { follow, setCurrentPage, unfollow, toggleFollowingProgress } from '../../redux/users-reducer';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import { compose } from 'redux';
+import { requestUsers } from "../../redux/users-reducer"
+import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 
 class UsersContainer extends React.Component {
    componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
-      this.props.getUsers(this.props.currentPage, this.props.pageSize)  //берем из users-reducer thunk. Присвоили в export
+      this.props.requestUsers(this.props.currentPage, this.props.pageSize)  //берем из users-reducer thunk. Присвоили в export
    }
 
    onPageChanged = (pageNumber) => {
-      this.props.getUsers(pageNumber, this.props.pageSize)
+      this.props.requestUsers(pageNumber, this.props.pageSize)
    }
 
    render() {
@@ -30,7 +32,7 @@ class UsersContainer extends React.Component {
    }
 }
 
-let mapStateToProps = (state) => {
+/* let mapStateToProps = (state) => {
    return {
       users: state.usersPage.users,
       pageSize: state.usersPage.pageSize,
@@ -38,6 +40,17 @@ let mapStateToProps = (state) => {
       currentPage: state.usersPage.currentPage,
       isFetching: state.usersPage.isFetching,
       followingInProgress: state.usersPage.followingInProgress
+   }
+} */
+
+let mapStateToProps = (state) => {
+   return {
+      users: getUsers(state),
+      pageSize: getPageSize(state),
+      totalUsersCount: getTotalUsersCount(state),
+      currentPage: getCurrentPage(state),
+      isFetching: getIsFetching(state),
+      followingInProgress: getFollowingInProgress(state)
    }
 }
 
@@ -53,5 +66,5 @@ let mapStateToProps = (state) => {
 
 //теперь используем compose
 export default compose(
-   connect(mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})
+   connect(mapStateToProps, { follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers})
 )(UsersContainer)

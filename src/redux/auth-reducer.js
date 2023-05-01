@@ -53,7 +53,7 @@ export const login = (email, password, rememberMe) => (dispatch) => {
          dispatch(getAuthUserData())         //когда ответ положительный, диспатчим и повторяем круг заново, чтобы залогиниться
       } else {
          let message =  response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-         dispatch(stopSubmit("login", {_error: message}))   //выводим общую ошибку, если есть ошибка ввода данных
+         dispatch(stopSubmit("login", {_error: message}))   //выводим общую ошибку, если есть ошибка ввода данных. Передаем какую форму хотим стопать и проблемные свойства с ошибкой
       }
    })
 }

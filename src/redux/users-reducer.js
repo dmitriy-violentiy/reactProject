@@ -111,12 +111,12 @@ export const toggleFollowingProgress = (isFetching, userId) => {
    }
 }
 
-export const getUsers = (currentPage, pageSize) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
+export const requestUsers = (page, pageSize) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
    return (dispatch) => {
       dispatch(toggleIsFetching(true))      //когда еще ответ запроса не пришел, true (т.е. gif прелоадера отрабатывает)
-         
-      usersAPI.getUsers(currentPage, pageSize).then(data => {     //так при загрузке получаем пользователей
-         dispatch(setCurrentPage(currentPage))
+      dispatch(setCurrentPage(page))         //выделение активной вкладки в страницах пользователей
+      
+      usersAPI.getUsers(page, pageSize).then(data => {     //так при загрузке получаем пользователей
          dispatch(toggleIsFetching(false))     //когда ответ на запрос пришел, выключаем gif прелоадера
          dispatch(setUsers(data.items))
          dispatch(setTotalUsersCount(data.totalCount))
