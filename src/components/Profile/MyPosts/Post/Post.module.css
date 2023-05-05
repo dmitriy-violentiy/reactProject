@@ -1,5 +1,10 @@
 .item {
-   color: green;
+   display: flex;
+   align-items: center;
+}
+
+.item_info {
+   margin-left: 15px;
 }
 
 .item img {

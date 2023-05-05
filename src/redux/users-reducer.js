@@ -112,41 +112,49 @@ export const toggleFollowingProgress = (isFetching, userId) => {
 }
 
 export const requestUsers = (page, pageSize) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
-   return (dispatch) => {
+   return async (dispatch) => {
       dispatch(toggleIsFetching(true))      //когда еще ответ запроса не пришел, true (т.е. gif прелоадера отрабатывает)
       dispatch(setCurrentPage(page))         //выделение активной вкладки в страницах пользователей
       
-      usersAPI.getUsers(page, pageSize).then(data => {     //так при загрузке получаем пользователей
+      let data = await usersAPI.getUsers(page, pageSize)     //так при загрузке получаем пользователей
          dispatch(toggleIsFetching(false))     //когда ответ на запрос пришел, выключаем gif прелоадера
          dispatch(setUsers(data.items))
          dispatch(setTotalUsersCount(data.totalCount))
-      })
    }
 }
+
+//рефакторинг. Объединение follow и unfollow в один элемент
+/* const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
+   dispatch(toggleFollowingProgress(true, userId))
+   let response = await apiMethod(userId)  //обращаемся через thunk
+      //запрос на подписку
+   if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
+      dispatch(actionCreator(userId))
+   }
+   dispatch(toggleFollowingProgress(false, userId))
+} */
 
 export const follow = (userId) => {
-   return (dispatch) => {
+   return async (dispatch) => {
       dispatch(toggleFollowingProgress(true, userId))
-      usersAPI.follow(userId)  //обращаемся через thunk
-         .then(response => {     //запрос на подписку
-            if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
-               dispatch(followSuccess(userId))
-            }
-            dispatch(toggleFollowingProgress(false, userId))
-      })
+      let response = await usersAPI.follow(userId)
+
+      if (response.data.resultCode == 0) {
+         dispatch(followSuccess(userId))
+      }
+      dispatch(toggleFollowingProgress(false,userId))
    }
 }
 
-export const unfollow = (userId) => {     //создали thunkCreator и передали в него currentPage и pageSize чтобы у внутреннего thunk был доступ к ним
-   return (dispatch) => {
+export const unfollow = (userId) => {
+   return async (dispatch) => {
       dispatch(toggleFollowingProgress(true, userId))
-      usersAPI.unfollow(userId)  //обращаемся через thunk
-         .then(response => {     //запрос на подписку
-            if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
-               dispatch(unfollowSuccess(userId))
-            }
-            dispatch(toggleFollowingProgress(false, userId))
-      })
+      let response = await usersAPI.unfollow(userId)
+
+      if (response.data.resultCode == 0) {
+         dispatch(unfollowSuccess(userId))
+      }
+      dispatch(toggleFollowingProgress(false, userId))
    }
 }
 

@@ -21,14 +21,12 @@ let AddNewPostForm = (props) => {
 }
 
 let AddNewPostFormRedux = reduxForm({form: "ProfileAddNewPostForm"})(AddNewPostForm)      //обернули AddNewPostForm в reduxForm, дали уникальное имя
-const MyPosts = React.memo((props) => {
+const MyPosts = (props) => {
 
    //использовалось в классовых компонентах
    /* shouldComponentUpdate(nextProps, nextState) {
       return nextProps != this.props || nextState != this.state 
    } */
-   
-      console.log('xxx');
 
       //создали новый массив объектов на основе массива posts, который выведет столько постов, сколько придет 
       let postsElements = props.posts.map( (post) => {
@@ -54,8 +52,7 @@ const MyPosts = React.memo((props) => {
          </div>
       )
    
-})
-
+}
 
 
 export default MyPosts;

@@ -8,9 +8,10 @@
    ;
    grid-template-rows: 60px 1fr;
    grid-template-columns: 2fr 10fr;
+   font-family: 'Nunito Sans', sans-serif;
 }
 
 .app-wrapper-content {
    grid-area: c;
-   background-color: blue;
+   background-color: rgb(252, 251, 227);
 }

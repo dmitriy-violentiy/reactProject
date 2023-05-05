@@ -1,7 +1,7 @@
 import { stopSubmit } from "redux-form"
 import { authAPI } from "../api/api"
 
-const SET_USER_DATA = 'SET_USER_DATA'
+const SET_USER_DATA = 'my-network/auth/SET_USER_DATA'
 
 
 let initialState = {
@@ -38,32 +38,29 @@ export const setAuthUserData = (userId, email, login, isAuth) => {
    }
 }
 
-export const getAuthUserData = () => (dispatch) => {
-   return authAPI.me().then(response => {     //так при загрузке получаем пользователей
+export const getAuthUserData = () => async (dispatch) => {
+   let response = await authAPI.me()     //так при загрузке получаем пользователей
       if (response.data.resultCode === 0) {
          let {id, login, email} = response.data.data
          dispatch(setAuthUserData(id, email, login, true))
       }
-   })
 }
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-   authAPI.login(email, password, rememberMe).then(response => {
+export const login = (email, password, rememberMe) => async (dispatch) => {
+   let response = await authAPI.login(email, password, rememberMe)
       if (response.data.resultCode === 0) {
          dispatch(getAuthUserData())         //когда ответ положительный, диспатчим и повторяем круг заново, чтобы залогиниться
       } else {
          let message =  response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
          dispatch(stopSubmit("login", {_error: message}))   //выводим общую ошибку, если есть ошибка ввода данных. Передаем какую форму хотим стопать и проблемные свойства с ошибкой
       }
-   })
 }
 
-export const logout = () => (dispatch) => {
-   authAPI.logout().then(response => {
+export const logout = () => async (dispatch) => {
+   let response = await authAPI.logout()
       if (response.data.resultCode === 0) {
          dispatch(setAuthUserData(null, null, null, false))         //когда ответ положительный, удалится кука, все обнуляем 
       }
-   })
 }
 
 export default authReducer;
