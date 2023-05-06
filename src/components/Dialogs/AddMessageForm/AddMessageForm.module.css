@@ -1,0 +1,23 @@
+.addMessageForm_textarea {
+   resize: none;
+   border-radius: 3px;
+   border-color: #000;
+   padding: 5px;
+}
+
+.addMessageForm_button {
+   padding: 8px 20px;
+   background-color: rgb(58, 168, 247);
+   color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+
+.addMessageForm_button:hover {
+   background-color: rgb(111, 188, 244);
+}
+
+
+

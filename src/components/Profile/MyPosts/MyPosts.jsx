@@ -11,9 +11,9 @@ let AddNewPostForm = (props) => {
    return(
       <form onSubmit={props.handleSubmit}>      
          <div>
-            <Field name="newPostText" component={Textarea} placeholder="Post message" validate={[required, maxLengthCreator(10)]} />
+            <Field className={classes.myposts_textarea} name="newPostText" component={Textarea} placeholder="Post message" validate={[required, maxLengthCreator(10)]} />
          </div>
-         <div>
+         <div className={classes.myposts_button}>
             <button>Add post </button>
          </div>
       </form>

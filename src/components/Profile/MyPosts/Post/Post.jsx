@@ -9,10 +9,10 @@ const Post = (props) => {
                </div>
                
                <div className={classes.item_info}>
-                  <div>
+                  <div className={classes.post_text}>
                      {props.message}
                   </div>
-                  <div>
+                  <div className={classes.post_likes}>
                      <span><i>Likes:</i> <b><i>{props.like}</i></b></span>
                   </div>
                </div>

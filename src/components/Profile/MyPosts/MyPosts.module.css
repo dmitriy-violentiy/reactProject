@@ -2,6 +2,33 @@
    padding: 10px;
 }
 
+.postsBlock h3 {
+   margin: 0 0 5px 0;
+}
+
 .posts {
    margin-top: 10px;
+}
+
+.myposts_textarea {
+   width: 400px;
+   height: 70px;
+   resize: none;
+   border-radius: 5px;
+   padding: 10px;
+}
+
+.myposts_button button {
+   font-family: 'Nunito Sans', sans-serif;
+   padding: 8px 20px;
+   background-color: rgb(58, 168, 247);
+   color: #fff;
+   border-radius: 5px;
+   border: none;
+   cursor: pointer;
+   transition: all ease 0.3s;
+}
+
+.myposts_button button:hover {
+   background-color: rgb(111, 188, 244);
 }

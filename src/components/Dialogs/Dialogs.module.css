@@ -1,9 +1,6 @@
 .dialogs {
    display: grid;
    grid-template-columns: 2fr 10fr;
-}
-
-.dialogsItems {
    padding: 10px;
 }
 
@@ -30,3 +27,14 @@
    padding-left: 10px;
    padding-bottom: 10px;
 }
+
+.wrap_userName {
+   display: flex;
+   align-items: center;
+}
+
+.userName {
+   font-size: 22px;
+   text-decoration: none;
+   color: #000;
+} 

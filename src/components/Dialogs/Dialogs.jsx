@@ -1,5 +1,4 @@
 import React from "react"
-
 import DialogItem from "./DialogItem/DialogItem"
 import classes from './Dialogs.module.css'
 import Message from "./Message/Message"
@@ -43,21 +42,5 @@ const Dialogs = (props) => {
       </div>
    )
 }
-
-/* const AddMessageForm = (props) => {
-   return (
-      <form onSubmit={props.handleSubmit}>
-         <div>
-            <Field component={Textarea} validate={[required, maxLengthCreator(50)]} name={"newMessageArea"} placeholder={"Enter you message"} />
-         </div>
-         <div>
-            <button>Add message </button>
-         </div>
-      </form>
-   ) 
-} */
-
-/* const AddMessageFormRedux = reduxForm({form: "dialogAddMessageForm"})(AddMessageForm) */
-
 
 export default Dialogs;

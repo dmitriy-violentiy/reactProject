@@ -10,3 +10,11 @@
 .item img {
    width: 50px;
 }
+
+.post_text {
+   font-size: 25px;
+}
+
+.post_likes {
+   font-size: 14px;
+}
