@@ -5,12 +5,13 @@ import {getUserProfile} from "../../redux/profile-reducer"
 import { compose } from "redux";
 import { getStatus } from "../../redux/profile-reducer";
 import { updateStatus } from "../../redux/profile-reducer";
+import { savePhoto } from "../../redux/profile-reducer";
 import withRouter from "../common/WithRouter/withRouter";
 
 class ProfileContainer extends React.Component {
 
-   componentDidMount() {
-		let userId = this.props.router.params.userId;
+   refreshProfile() {
+      let userId = this.props.router.params.userId;
       //укажем, что если нет userId то выведем нас
 		if (!userId) { 
          userId = this. props.autorizedUserId;
@@ -20,11 +21,26 @@ class ProfileContainer extends React.Component {
       }
       this.props.getUserProfile(userId)
       this.props.getStatus(userId)
+   }
+   
+   //срабатывает 1 раз, когда компонента вмонтируется
+   componentDidMount() {
+		this.refreshProfile()
 	}
+
+   componentDidUpdate(prevProps, prevState, snapshot) {
+      if (this.props.router.params.userId != prevProps.router.params.userId) {   //если предыдущие пропсы не равны новым, перерисуем. Нужно, чтобы при нажатии на Profile, Переходили на нашу страничку
+         this.refreshProfile()
+      }
+   }
    
    render() {
       return (
-         <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>  //используем ... т.к. хотим передать сразу все пропсы дальше
+         <Profile {...this.props} 
+            isOwner={!this.props.router.params.userId}
+            profile={this.props.profile} 
+            status={this.props.status} 
+            updateStatus={this.props.updateStatus}/>  //используем ... т.к. хотим передать сразу все пропсы дальше
          )
    }
 }
@@ -38,7 +54,7 @@ let mapStateToProps = (state) => ({
 })
 
 export default compose(
-   connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+   connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}),
    withRouter,
    /* withAuthRedirect */
 )(ProfileContainer)

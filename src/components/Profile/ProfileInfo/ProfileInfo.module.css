@@ -12,3 +12,7 @@
 .descriptionBlock_avatar img {
    border-radius: 50%;
 }
+
+.mainPhoto {
+   max-width: 200px;
+}
