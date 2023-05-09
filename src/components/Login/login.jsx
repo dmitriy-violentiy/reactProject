@@ -7,7 +7,7 @@ import { login } from "../../redux/auth-reducer"
 import { Navigate } from "react-router-dom";
 import style from "../common/FormsControls/FormsControl.module.css"
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
    //handleSubmit пробросился автоматически при обертывании в LoginReduxForm. Он помогает перерисовываться при каждом нажатии 
    return (
       <form onSubmit={handleSubmit}> 
@@ -20,6 +20,10 @@ const LoginForm = ({handleSubmit, error}) => {
          <div>
             <Field type={"checkbox"} name="rememberMe" component={Input}/> remember me
          </div>
+
+         { captchaUrl && <img src={captchaUrl} /> }
+         { captchaUrl && <div><Field placeholder={"Symbols from image"} validate={[required]} name="captcha" type="" component={Input}/></div> }
+
          { error && <div className={style.formSummaryError}>
             {error}
          </div> }
@@ -35,7 +39,7 @@ const LoginReduxForm = reduxForm({ form: 'login'})(LoginForm)
 const Login = (props) => {
    //в formData приходят данные, собранные из формы
    const onSubmit = (formData) => {
-      props.login(formData.email, formData.password, formData.rememberMe)
+      props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
    }
 
    //если залогинены, редиректим на Profile, иначе выводим окно логинизации
@@ -44,11 +48,12 @@ const Login = (props) => {
    }
    return <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit}/>
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
    </div>
 }
 
 const mapStateToProps = (state) => ({
+   captchaUrl: state.auth.captchaUrl,
    isAuth: state.auth.isAuth
 })
 export default connect(mapStateToProps, {login} )(Login)
