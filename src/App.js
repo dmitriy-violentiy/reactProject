@@ -1,11 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import FriendsContainer from "./components/Friends/FriendsContainer";
-import Music from "./components/Music/Music";
 import Navbar from "./components/Navbar/Navbar";
-import News from "./components/News/News";
-import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/login";
@@ -18,15 +14,22 @@ import withRouter from "./components/common/WithRouter/withRouter";
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer"));
 const ProfileContainer = lazy(() => import("./components/Profile/ProfileContainer"));
 
-
 class App extends React.Component {
+   catchAllUnhandleErrors = (reason, promise) => {
+      alert("Some error")
+   } 
    componentDidMount() {
       this.props.initializeApp()
+      /* window.addEventListener("unhandledrejection", this.catchAllUnhandleErrors)   */   //обработка всех ошибок
    }
+   /* componentWillUnmount() {
+      window.removeEventListener("unhandledrejection", this.catchAllUnhandleErrors)
+   } */
+
    render() {
-      if(!this.props.initialized) {
+      /* if(!this.props.initialized) {
          return <Preloader />
-      }
+      } */
       return (
             <div className="app-wrapper">
             <HeaderContainer />
@@ -34,14 +37,12 @@ class App extends React.Component {
             <div className="app-wrapper-content">
                <Suspense fallback={<Preloader />}>
                   <Routes>
-                     <Route path="/dialogs/*" element={<DialogsContainer />} />
+                     <Route path="/" element={<ProfileContainer />} />
+                     <Route path="/dialogs/" element={<DialogsContainer />} />
                      <Route path='/profile/:userId?' element={<ProfileContainer />} />
-                     <Route path="/news" element={<News />} />
-                     <Route path="/Music" element={<Music />} />
-                     <Route path="/settings" element={<Settings />} />
-                     <Route path="/friends/*" element={<FriendsContainer/>} />
-                     <Route path="/users/*" element={<UsersContainer/>} />
-                     <Route path="/login/*" element={<Login/>} />
+                     <Route path="/users/" element={<UsersContainer/>} />
+                     <Route path="/login/" element={<Login/>} />
+                     <Route path="*" element={<div>404 NOT FOUND</div>} />
                   </Routes>
                </Suspense>
             </div>

@@ -6,6 +6,7 @@ import Preloader from '../common/Preloader/Preloader';
 import { compose } from 'redux';
 import { requestUsers } from "../../redux/users-reducer"
 import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
+import classes from "./users.module.css"
 
 class UsersContainer extends React.Component {
    componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
@@ -18,7 +19,7 @@ class UsersContainer extends React.Component {
 
    render() {
       return <>
-         { this.props.isFetching ? <Preloader /> : null }
+         { this.props.isFetching ? <div className={classes.usersPreloader}><Preloader /></div> : null }
                <Users  totalUsersCount={this.props.totalUsersCount} 
                            pageSize={this.props.pageSize} 
                            currentPage={this.props.currentPage} 

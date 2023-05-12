@@ -1,0 +1,40 @@
+.login {
+   padding: 10px;
+}
+
+.login button {
+   font-family: 'Nunito Sans', sans-serif;
+   font-size: 16px;
+   background-color: rgb(58, 168, 247);
+   color: #fff;
+   border: none;
+   padding: 2px 25px;
+   border-radius: 40px;
+   align-items: center;
+   cursor: pointer;
+   transition: all ease 0.3s;
+}
+
+.login button:hover {
+   background-color: rgb(111, 188, 244);
+}
+
+.login h3{
+   margin-bottom: 10px;
+}
+
+.input {
+   padding: 4px 8px;
+   margin-bottom: 5px;
+   border-radius: 6px;
+   border: 1px solid lightgray;
+}
+
+.rememberMeCheckBox {
+   display: flex;
+}
+
+.rememberMeCheckBox input {
+   margin-top: 5px;
+   margin-left: 0;
+}

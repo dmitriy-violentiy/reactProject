@@ -1,4 +1,50 @@
 .usersPhoto {
    width: 60px;
    height: 60px;
+   border-radius: 50%;
+}
+
+.usersWrap {
+   padding: 10px;
+}
+
+.usersWrap button {
+   cursor: pointer;
+   border-radius: 50px;
+   border: none;
+   background-color: rgb(58, 168, 247);
+   color: #fff;
+   padding: 3px 10px;
+   transition: all ease 0.3s;
+}
+
+.usersWrap button:hover {
+   background-color: rgb(111, 188, 244);
+}
+
+.users {
+   margin-top: 15px;
+   display: flex;
+   flex-wrap: wrap;
+   max-width: 950px;
+}
+
+.user {
+   margin-right: 10px;
+   margin-bottom: 10px;
+   border: 2px solid #c6c6c6;
+   border-radius: 10px;
+   padding: 10px;
+}
+
+.usersPreloader {
+   position: relative;
+}
+
+.usersPreloader img {
+   width: 70px;
+   position: absolute;
+   left: -70px;
+   top: 25px;
+   transform: translateY(-50%);
 }

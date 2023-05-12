@@ -27,8 +27,9 @@ const ProfileStatusWithHooks = (props) => {
       //условие вывода span или input
       <div>
          {  !editMode &&
-            <div>
-               {props.status ? <span onDoubleClick={activateEditMode}><b>My status: </b>{props.status}</span> : <span onDoubleClick={activateEditMode}><b>My status: </b>{props.status}empty status</span>}
+            <div className={classes.statusWrap}>
+               {props.status ? <span className={classes.status} onClick={activateEditMode}>
+                  <b>My status: </b>{props.status}</span> : <span onDoubleClick={activateEditMode}><b>My status: </b>{props.status}empty status</span>}
             </div>
          }
          { editMode &&

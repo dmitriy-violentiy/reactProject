@@ -18,7 +18,7 @@
    padding: 10px;
 }
 
-.myposts_button button {
+.myposts_button {
    font-family: 'Nunito Sans', sans-serif;
    padding: 8px 20px;
    background-color: rgb(58, 168, 247);
@@ -29,6 +29,6 @@
    transition: all ease 0.3s;
 }
 
-.myposts_button button:hover {
+.myposts_button:hover {
    background-color: rgb(111, 188, 244);
 }

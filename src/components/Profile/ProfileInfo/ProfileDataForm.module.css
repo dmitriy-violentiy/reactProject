@@ -1,0 +1,30 @@
+.profileDataForm {
+   font-size: 14px;
+}
+
+.profileDataForm__nameInput, .profileDataForm__aboutInput, .profileDataForm__skillsInput {
+   padding: 5px;
+   border-radius: 5px;
+   width: 200px;
+   margin-bottom: 7px;
+}
+
+.profileDataForm__jobInput_wrap {
+   display: flex;
+   margin-bottom: 10px;
+}
+
+.profileDataForm__button {
+   margin-right: 10px;
+   border: none;
+   background: #757575;
+   padding: 5px 15px;
+   border-radius: 10px;
+   color: #fff;
+   cursor: pointer;
+   transition: .2s ease-in-out;
+}
+
+.profileDataForm__button:hover {
+   background: #8b8b8b;
+}
