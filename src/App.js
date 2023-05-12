@@ -20,16 +20,12 @@ class App extends React.Component {
    } 
    componentDidMount() {
       this.props.initializeApp()
-      /* window.addEventListener("unhandledrejection", this.catchAllUnhandleErrors)   */   //обработка всех ошибок
    }
    /* componentWillUnmount() {
       window.removeEventListener("unhandledrejection", this.catchAllUnhandleErrors)
    } */
 
    render() {
-      /* if(!this.props.initialized) {
-         return <Preloader />
-      } */
       return (
             <div className="app-wrapper">
             <HeaderContainer />
@@ -39,7 +35,7 @@ class App extends React.Component {
                   <Routes>
                      <Route path="/" element={<ProfileContainer />} />
                      <Route path="/reactProject" element={<ProfileContainer />} />
-                     <Route path="/dialogs/" element={<DialogsContainer />} />
+                     <Route path="/dialogs/*" element={<DialogsContainer />} />
                      <Route path='/profile/:userId?' element={<ProfileContainer />} />
                      <Route path="/users/" element={<UsersContainer/>} />
                      <Route path="/login/" element={<Login/>} />

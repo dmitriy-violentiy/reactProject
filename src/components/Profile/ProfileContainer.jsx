@@ -72,20 +72,18 @@ import { updateStatus } from "../../redux/profile-reducer";
 import { savePhoto, saveProfile } from "../../redux/profile-reducer";
 import withRouter from "../common/WithRouter/withRouter";
 
-const ProfileContainer = (props) => {
-
-   /* 
+const ProfileContainer = (props) => { 
    
    //срабатывает 1 раз, когда компонента вмонтируется
-   componentDidMount() {
+/*    componentDidMount() {
 		this.refreshProfile()
-	}
+	} */
 
-   componentDidUpdate(prevProps, prevState, snapshot) {
+ /*   componentDidUpdate(prevProps, prevState, snapshot) {
       if (this.props.router.params.userId != prevProps.router.params.userId) {   //если предыдущие пропсы не равны новым, перерисуем. Нужно, чтобы при нажатии на Profile, Переходили на нашу страничку
          this.refreshProfile()
       }
-   } */
+   }  */
    
    let refreshProfile = () => {
       let userId = props.router.params.userId;
@@ -128,5 +126,5 @@ let mapStateToProps = (state) => ({
 export default compose(
    connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}),
    withRouter,
-   /* withAuthRedirect */
+
 )(ProfileContainer)
