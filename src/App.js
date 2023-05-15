@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
@@ -14,38 +14,30 @@ import withRouter from "./components/common/WithRouter/withRouter";
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer"));
 const ProfileContainer = lazy(() => import("./components/Profile/ProfileContainer"));
 
-class App extends React.Component {
-   catchAllUnhandleErrors = (reason, promise) => {
-      alert("Some error")
-   } 
-   componentDidMount() {
-      this.props.initializeApp()
-   }
-   /* componentWillUnmount() {
-      window.removeEventListener("unhandledrejection", this.catchAllUnhandleErrors)
-   } */
+const App = (props) => {
+   useEffect(() => {
+      props.initializeApp()
+   }, [])
 
-   render() {
-      return (
-            <div className="app-wrapper">
-            <HeaderContainer />
-            <Navbar />
-            <div className="app-wrapper-content">
-               <Suspense fallback={<Preloader />}>
-                  <Routes>
-                     <Route path="/" element={<ProfileContainer />} />
-                     <Route path="/reactProject" element={<ProfileContainer />} />
-                     <Route path="/dialogs/*" element={<DialogsContainer />} />
-                     <Route path='/profile/:userId?' element={<ProfileContainer />} />
-                     <Route path="/users/" element={<UsersContainer/>} />
-                     <Route path="/login/" element={<Login/>} />
-                     <Route path="*" element={<div>404 NOT FOUND</div>} />
-                  </Routes>
-               </Suspense>
-            </div>
-            </div>
-      );
-   }
+   return (
+      <div className="app-wrapper">
+      <HeaderContainer />
+      <Navbar />
+      <div className="app-wrapper-content">
+         <Suspense fallback={<Preloader />}>
+            <Routes>
+               <Route path="/" element={<ProfileContainer />} />
+               <Route path="/reactProject" element={<ProfileContainer />} />
+               <Route path="/dialogs/*" element={<DialogsContainer />} />
+               <Route path='/profile/:userId?' element={<ProfileContainer />} />
+               <Route path="/users/" element={<UsersContainer/>} />
+               <Route path="/login/" element={<Login/>} />
+               <Route path="*" element={<div>404 NOT FOUND</div>} />
+            </Routes>
+         </Suspense>
+      </div>
+      </div>
+   );
 };
 
 const mapStateToProps = (state) => ({

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { follow, setCurrentPage, unfollow, toggleFollowingProgress } from '../../redux/users-reducer';
 import Users from './Users';
@@ -8,29 +8,28 @@ import { requestUsers } from "../../redux/users-reducer"
 import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 import classes from "./users.module.css"
 
-class UsersContainer extends React.Component {
-   componentDidMount() {      //этот метод встроен в React.Component и говорит компоненте что она была отрисована в HTML
-      this.props.requestUsers(this.props.currentPage, this.props.pageSize)  //берем из users-reducer thunk. Присвоили в export
+const UsersContainer = (props) => {
+
+   useEffect( () => {
+      props.requestUsers(props.currentPage, props.pageSize)
+   }, [])
+
+   const onPageChanged = (pageNumber) => {
+      props.requestUsers(pageNumber, props.pageSize)
    }
 
-   onPageChanged = (pageNumber) => {
-      this.props.requestUsers(pageNumber, this.props.pageSize)
-   }
-
-   render() {
-      return <>
-         { this.props.isFetching ? <div className={classes.usersPreloader}><Preloader /></div> : null }
-               <Users  totalUsersCount={this.props.totalUsersCount} 
-                           pageSize={this.props.pageSize} 
-                           currentPage={this.props.currentPage} 
-                           onPageChanged={this.onPageChanged}
-                           users={this.props.users}
-                           follow={this.props.follow}
-                           unfollow={this.props.unfollow}
-                           followingInProgress={this.props.followingInProgress}
-               />
-            </>
-   }
+   return <>
+      { props.isFetching ? <div className={classes.usersPreloader}><Preloader /></div> : null }
+            <Users  totalUsersCount={props.totalUsersCount} 
+                        pageSize={props.pageSize} 
+                        currentPage={props.currentPage} 
+                        onPageChanged={onPageChanged}
+                        users={props.users}
+                        follow={props.follow}
+                        unfollow={props.unfollow}
+                        followingInProgress={props.followingInProgress}
+            />
+         </>
 }
 
 let mapStateToProps = (state) => {

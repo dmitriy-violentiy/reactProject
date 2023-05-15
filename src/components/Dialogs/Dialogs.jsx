@@ -40,7 +40,6 @@ const Dialogs = (props) => {
          </div>
             <AddMessageForm onSubmit={ addNewMessage } />
       </div>
-      
    )
 }
 

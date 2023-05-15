@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import classes from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/avatar.png"
 import ProfileDataForm from "./ProfileDataForm";
 
@@ -39,7 +39,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 
             <div className={classes.profileInfo__wrap}>
             <div className={classes.descriptionBlock__status}>
-               <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
+               <ProfileStatus status={status} updateStatus={updateStatus}/>
             </div>
 
             { editMode ? <ProfileDataForm initialValues={profile.aboutMe} profile={profile} onSubmit={onSubmit}/> 
@@ -54,21 +54,21 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
 
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
    return (
-            <div>
-               <div>
-                  <b>Name:</b> {profile.fullName}
-               </div>
-               <div>
-                  <div><b>A job status:</b> { profile.lookingForAJob ? 'looking for work' : 'not looking for a job' } </div>
-               </div>
-               <div>
-                  <b>My professional skills:</b> { profile.lookingForAJobDescription }
-               </div>
-               <div>
-                  <b>About me:</b> {profile.aboutMe}
-               </div>
-               { isOwner && <div><button onClick={goToEditMode} className={classes.descriptionBlock__changeInfoButton}>Change personal information</button></div> }
-            </div>
+      <div>
+         <div>
+            <b>Name:</b> {profile.fullName}
+         </div>
+         <div>
+            <div><b>A job status:</b> { profile.lookingForAJob ? 'looking for work' : 'not looking for a job' } </div>
+         </div>
+         <div>
+            <b>My professional skills:</b> { profile.lookingForAJobDescription }
+         </div>
+         <div>
+            <b>About me:</b> {profile.aboutMe}
+         </div>
+         { isOwner && <div><button onClick={goToEditMode} className={classes.descriptionBlock__changeInfoButton}>Change personal information</button></div> }
+      </div>
    )
 }
 
