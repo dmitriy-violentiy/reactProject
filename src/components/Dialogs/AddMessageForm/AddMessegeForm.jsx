@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { Textarea } from "../../common/FormsControls/FormsControls";
 import { maxLengthCreator, required } from "../../../utils/validators/validators";
 import { Field, reduxForm } from "redux-form";
@@ -19,4 +19,41 @@ export const AddMessageForm = (props) => {
    ) 
 }
 
-export default reduxForm({form: "dialogAddMessageForm"})(AddMessageForm)
+export default reduxForm({form: "dialogAddMessageForm"})(AddMessageForm) */
+
+import React from "react";
+import { Textarea } from "../../common/FormsControls/FormsControls";
+import { maxLengthCreator, required } from "../../../utils/validators/validators";
+import { Field, reduxForm } from "redux-form";
+import classes from "./AddMessageForm.module.css"
+import { useForm } from "react-hook-form";
+
+export const AddMessageForm = (props) => {
+   const {
+      register,
+      formState: {
+         errors,
+         isValid
+      },
+      handleSubmit,
+   } = useForm({
+      mode: "onBlur",
+   })
+
+   return (
+      <form onSubmit={handleSubmit(props.onSubmit)} className={classes.addMessageForm}>
+         <div>
+         <textarea className={classes.addMessageForm_textarea} placeholder="Enter you message" 
+               {...register('newMessageArea', {})}
+         />
+         
+         </div>
+         <div>
+            <input className={classes.addMessageForm_button} type="submit" />
+         
+         </div>
+      </form>
+   ) 
+}
+
+export default AddMessageForm
