@@ -46,19 +46,16 @@ const ProfileDataForm = ({profile, ...props}) => {
    return (
       <form onSubmit={handleSubmit(props.onSubmit)} className={classes.profileDataForm}>
          <div>
-            <b>Name:</b> 
-               <label title={errors?.fullName}>
-                  <input className={classes.profileDataForm__nameInput} placeholder="Full name" defaultValue={profile.fullName} {...register('fullName', {required: true})} required />
-               </label>
+            <div><b>Name:</b></div><input className={classes.profileDataForm__nameInput} placeholder="Full name" defaultValue={profile.fullName} {...register('fullName', {required: true})} required />
          </div>
          <div className={classes.profileDataForm__jobInput_wrap}>
             <b>A job status:</b> <input className={classes.profileDataForm__jobInput} placeholder="" defaultValue={profile.lookingForAJob} type="checkbox" {...register('lookingForAJob', {})} />
          </div>
          <div>
-            <b>My professional skills:</b> <textarea className={classes.profileDataForm__skillsInput} placeholder="My professional skills" defaultValue={profile.lookingForAJobDescription} {...register('lookingForAJobDescription', {required: true})} required />
+            <div><b>My professional skills:</b></div> <textarea className={classes.profileDataForm__skillsInput} placeholder="My professional skills" defaultValue={profile.lookingForAJobDescription} {...register('lookingForAJobDescription', {required: true})} required />
          </div>
          <div>
-            <b>About me:</b> <textarea className={classes.profileDataForm__aboutInput} placeholder="About me" defaultValue={profile.aboutMe} {...register('aboutMe', {required: true})} required />
+            <div></div><b>About me:</b><div/> <textarea className={classes.profileDataForm__aboutInput} placeholder="About me" defaultValue={profile.aboutMe} {...register('aboutMe', {required: true})} required />
          </div>
          <input className={classes.profileDataForm__button} type="submit"/>
       </form>

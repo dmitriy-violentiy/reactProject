@@ -71,7 +71,7 @@ import classes from "./Login.module.css"
 import { useForm } from "react-hook-form";
 import { isValid } from "redux-form";
 
-const LoginForm = (props) => {
+const LoginForm = ({login, isAuth, error, captchaUrl}) => {
    
    const {
       register,
@@ -85,9 +85,9 @@ const LoginForm = (props) => {
    })
 
    const onSubmit = async (formData) => {
-      props.login(formData.email, formData.password)
+      login(formData.email, formData.password, formData.captcha)
    }
-   if (props.isAuth) {
+   if (isAuth) {
       return <Navigate to={"/profile"} />
    }
 
@@ -96,26 +96,32 @@ const LoginForm = (props) => {
       <form onSubmit={handleSubmit(onSubmit)} className={classes.login}> 
          <h3>Authentication</h3>
             <div>
-               <input placeholder="E-mail" 
-               {...register('email', {
-                  required: true
-               }
+               <input className={classes.input} placeholder="E-mail" 
+               {...register('email', {}
                )}
                />
-               <span>
-               </span>
+               <div>
+                  {}
+               </div>
             </div>
             
             <div>
-               <input placeholder="Password" type="password" 
+               <input className={classes.input} placeholder="Password" type="password" 
                {...register('password', {
                   required: true
                }
                )}
                />
             </div>
+
+            { captchaUrl && <img src={captchaUrl} /> }
+            { captchaUrl && <div><input className={classes.input} placeholder={"Symbols from image"} required 
+            {...register('captcha', {
+                  required: true
+               }
+               )}/></div> }
          
-         <input type="submit" disabled={!isValid} />
+         <button type="submit">login</button>
          {/* <div>
             <input className={classes.input} placeholder={"Email"} validate={[required, maxLengthCreator(30)]} type="text" />
          </div>

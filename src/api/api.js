@@ -55,8 +55,8 @@ export const authAPI = {
    me() {
       return instance.get(`auth/me`)
    },
-   login(email, password, rememberMe = false, captcha = null) {    //если данные должны прийти извне, передаем их при объявлении
-      return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+   login(email, password, captcha = null) {    //если данные должны прийти извне, передаем их при объявлении
+      return instance.post(`auth/login`, {email, password, captcha })
    },
    logout() {
       return instance.delete(`auth/login`)

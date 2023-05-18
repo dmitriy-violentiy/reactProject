@@ -43,13 +43,13 @@ export const AddMessageForm = (props) => {
    return (
       <form onSubmit={handleSubmit(props.onSubmit)} className={classes.addMessageForm}>
          <div>
-         <textarea className={classes.addMessageForm_textarea} placeholder="Enter you message" 
+         <textarea className={classes.addMessageForm_textarea} placeholder="Enter you message" required
                {...register('newMessageArea', {})}
          />
          
          </div>
          <div>
-            <input className={classes.addMessageForm_button} type="submit" />
+            <button className={classes.addMessageForm_button} type="submit" disabled={!isValid}>send message</button>
          
          </div>
       </form>

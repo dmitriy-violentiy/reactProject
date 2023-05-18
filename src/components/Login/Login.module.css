@@ -13,6 +13,12 @@
    align-items: center;
    cursor: pointer;
    transition: all ease 0.3s;
+   margin-top: 5px;
+}
+
+.login button:disabled, .login button:disabled:hover {
+   cursor: default;
+   background-color: rgba(58, 168, 247, 0.303);
 }
 
 .login button:hover {
@@ -28,13 +34,4 @@
    margin-bottom: 5px;
    border-radius: 6px;
    border: 1px solid lightgray;
-}
-
-.rememberMeCheckBox {
-   display: flex;
-}
-
-.rememberMeCheckBox input {
-   margin-top: 5px;
-   margin-left: 0;
 }

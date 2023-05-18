@@ -29,10 +29,10 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
          <div className={classes.descriptionBlock}>
             <div className={classes.descriptionBlock__avatar}>
                <div className={classes.descriptionBlock__image}><img src={profile.photos.large || userPhoto} className={classes.mainPhoto}/>
-                  <div className={classes.descriptionBlock__changeAvatar}>
-                     <label className={classes.descriptionBlock__changeAvatar_label} for="files" >Select Image</label>
-                     { isOwner &&  <input id="files" className={classes.descriptionBlock__changeAvatar_button} type={"file"} title="" onChange={onMainPhotoSelected} /> }
-                  </div>
+               <div className={classes.descriptionBlock__changeAvatar}>
+                     { isOwner && <label className={classes.descriptionBlock__changeAvatar_label} for="files" >Select Image</label>}
+                     { isOwner && <input id="files" className={classes.descriptionBlock__changeAvatar_button} type={"file"} title="" onChange={onMainPhotoSelected} /> }
+                  </div> 
                </div>
                
             </div>
