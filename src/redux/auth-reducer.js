@@ -1,9 +1,7 @@
-import { stopSubmit } from "redux-form"
 import { authAPI, securityAPI } from "../api/api"
 
 const SET_USER_DATA = 'my-network/auth/SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'my-network/auth/GET_CAPTCHA_URL_SUCCESS'
-
 
 let initialState = {
       userId: null,
@@ -11,7 +9,6 @@ let initialState = {
       login: null,
       isAuth: false,
       captchaUrl: null 
-      /* isFetching: false */
 }
 
 const authReducer = (state = initialState, action) => {
@@ -58,16 +55,19 @@ export const getAuthUserData = () => async (dispatch) => {
       }
 }
 
-export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
-   let response = await authAPI.login(email, password, rememberMe, captcha)
+export const login = (email, password, captcha) => async (dispatch) => {
+   let response = await authAPI.login(email, password, captcha)
       if (response.data.resultCode === 0) {
          dispatch(getAuthUserData())         //когда ответ положительный, диспатчим и повторяем круг заново, чтобы залогиниться
       } else {
+         if (response.data.resultCode === 1) {
+            alert(response.data.messages)
+         }
          if (response.data.resultCode === 10) {
             dispatch(getCaptchaUrl())
          }
-         let message =  response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-         dispatch(stopSubmit("login", {_error: message}))   //выводим общую ошибку, если есть ошибка ввода данных. Передаем какую форму хотим стопать и проблемные свойства с ошибкой
+         /* let message =  response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+         dispatch(stopSubmit("login", {_error: message}))  */  //выводим общую ошибку, если есть ошибка ввода данных. Передаем какую форму хотим стопать и проблемные свойства с ошибкой
       }
 }
 

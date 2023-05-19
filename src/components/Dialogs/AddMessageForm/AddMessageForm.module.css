@@ -15,6 +15,10 @@
     transition: all ease 0.3s;
 }
 
+.addMessageForm_button:disabled {
+   color: red
+}
+
 .addMessageForm_button:hover {
    background-color: rgb(111, 188, 244);
 }

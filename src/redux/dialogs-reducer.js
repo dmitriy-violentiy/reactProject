@@ -1,6 +1,6 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
 
-let initialState = {
+const initialState = {
   dialogs: [
     { id: 1, name: "Anton" },
     { id: 2, name: "Oleg" },
@@ -16,34 +16,31 @@ let initialState = {
     { id: 4, messege: "Hello" },
     { id: 5, messege: "By" },
     { id: 6, messege: "Maybe..." },
-  ]
+  ],
 };
 
 const dialogsReducer = (state = initialState, action) => {
-
-   switch (action.type) {
-      case ADD_MESSAGE: 
-         let text = action.newMessageText
-         let newMessage = {
-            id: 6,
-            messege: text
-         }
+  switch (action.type) {
+    case ADD_MESSAGE:
+      let text = action.newMessageText;
+      let newMessage = {
+        id: 6,
+        messege: text,
+      };
       return {
-            ...state,
-            messages: [...state.messages, newMessage]      //скопировали массив из главного state и добавили в него новый объект
-         }
-      default: 
-         return state;
-
-}
+        ...state,
+        messages: [...state.messages, newMessage], //скопировали массив из главного state и добавили в него новый объект
+      };
+    default:
+      return state;
+  }
 };
-
 
 export const addMessageActionCreator = (newMessageText) => {
   return {
     type: ADD_MESSAGE,
-    newMessageText
+    newMessageText,
   };
-}
+};
 
 export default dialogsReducer;

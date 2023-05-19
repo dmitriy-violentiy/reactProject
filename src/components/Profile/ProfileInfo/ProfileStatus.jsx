@@ -1,58 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from './ProfileInfo.module.css'
 
-class ProfileStatus extends React.Component {
-   state = {
-      editMode: false,      //режим редактирования в статусе
-      status: this.props.status     //изначальное значение status берем из пропсов
-   }
+const ProfileStatus = (props) => {
+
+   let [editMode, setEditMode] = useState(false)      //присвоили в editMode - false, а в setEditMode функцию, меняющую это значение
+   let [status, setStatus] = useState(props.status)
+
+   useEffect( () => {
+      setStatus(props.status)
+   }, [props.status] )     //указали, что зависем от props.status и будем перерисовывать всегда, когда будет новый props.status отличаться от старого
    
-   activateEditMode = () => {
-      console.log("this:", this)
-      this.setState({
-         editMode: true
-      })
-   } 
-   deactivateEditMode = () => {
-      this.setState({
-         editMode: false
-      })
-      this.props.updateStatus(this.state.status)     //обновляем статус, взяв его из value input-a
+   const activateEditMode = () => {
+      setEditMode(true)
+   }
+
+   const deactivateEditMode = () => {
+      setEditMode(false)
+      props.updateStatus(status)     //обновляем статус, взяв его из value input-a
    } 
 
-   //узначем значение из input и заночим в локальный state
-   onStatusChange = (event) => {
-      this.setState({
-         status: event.currentTarget.value
-      })
+   const onStatusChange = (event) => {
+      setStatus(event.currentTarget.value)
    }
 
-   //условие, по которому заносим новый статус, если новый не равен предыдущему
-   componentDidUpdate(prevProps, prevState) {
-      if(prevProps.status !== this.props.status) {
-         this.setState({
-            status: this.props.status
-         })
-      }
-   }
+   return (
+      //условие вывода span или input
+      <div>
+         {  !editMode &&
+            <div className={classes.statusWrap}>
+               {props.status ? <span className={classes.status} onClick={activateEditMode}>
+                  <b>My status: </b>{props.status}</span> : <span onDoubleClick={activateEditMode}><b>My status: </b>{props.status}empty status</span>}
+            </div>
+         }
+         { editMode &&
+            <div>
+               <input onChange={ onStatusChange } autoFocus={true} onBlur={ deactivateEditMode } value={ status } />
+            </div>
+         }
+      </div>
+   )
 
-   render() {
-      return (
-         //условие вывода span или input
-         <div>
-            {!this.state.editMode &&
-               <div>
-                  <span onDoubleClick={ this.activateEditMode }><b>Статус: </b>{this.props.status || "-----------"}</span>
-               </div>
-            }
-            {this.state.editMode &&
-               <div>
-                  <input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactivateEditMode } value={this.state.status}/>
-               </div>
-            }
-         </div>
-      )
-   }
 }
 
 export default ProfileStatus;

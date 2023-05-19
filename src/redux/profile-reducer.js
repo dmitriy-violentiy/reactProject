@@ -95,7 +95,6 @@ export const updateStatus = (status) => async (dispatch) => {
       if (response.data.resultCode === 0) {
          dispatch(setStatus(status));
       }
-   
 }
 
 export const savePhoto = (file) => async (dispatch) => {
