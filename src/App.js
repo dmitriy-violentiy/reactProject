@@ -8,9 +8,6 @@ import { compose } from "redux";
 import withRouter from "./components/common/WithRouter/withRouter";
 import RootNavigator from "./components/common/RootNavigator/RootNavigator";
 
-lazy(() => import("./components/Dialogs/DialogsContainer"));
-lazy(() => import("./components/Profile/ProfileContainer"));
-
 const App = (props) => {
    useEffect(() => {
       props.initializeApp()
