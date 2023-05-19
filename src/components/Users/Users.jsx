@@ -3,7 +3,7 @@ import Paginator from "../common/paginator/Paginator";
 import User from "./User";
 import classes from "./users.module.css"
 
-let Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}) => {
+const Users = ({currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props}) => {
    
    return <div className={classes.usersWrap}>  
       <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalItemsCount={totalUsersCount} pageSize={pageSize}/>

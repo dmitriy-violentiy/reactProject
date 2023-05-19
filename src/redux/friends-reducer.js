@@ -1,4 +1,4 @@
-let initialState = {
+const initialState = {
    friends: [
       { id: 1, name: "Dmitriy" },
       { id: 2, name: "Oleg" },
@@ -11,7 +11,6 @@ let initialState = {
 }
 
 const friendsReducer = (state = initialState, action) => {
-
    return state
 }  
 

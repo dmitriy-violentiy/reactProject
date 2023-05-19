@@ -3,14 +3,12 @@ import { authAPI, securityAPI } from "../api/api"
 const SET_USER_DATA = 'my-network/auth/SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'my-network/auth/GET_CAPTCHA_URL_SUCCESS'
 
-
 let initialState = {
       userId: null,
       email: null,
       login: null,
       isAuth: false,
       captchaUrl: null 
-      /* isFetching: false */
 }
 
 const authReducer = (state = initialState, action) => {

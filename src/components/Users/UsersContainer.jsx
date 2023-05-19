@@ -8,31 +8,31 @@ import { requestUsers } from "../../redux/users-reducer"
 import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress } from '../../redux/users-selectors';
 import classes from "./users.module.css"
 
-const UsersContainer = (props) => {
+const UsersContainer = ({ currentPage, pageSize, requestUsers, users, totalUsersCount, isFetching, follow, unfollow, followingInProgress }) => {
 
    useEffect( () => {
-      props.requestUsers(props.currentPage, props.pageSize)
+      requestUsers(currentPage, pageSize)
    }, [])
 
    const onPageChanged = (pageNumber) => {
-      props.requestUsers(pageNumber, props.pageSize)
+      requestUsers(pageNumber, pageSize)
    }
 
    return <>
-      { props.isFetching ? <div className={classes.usersPreloader}><Preloader /></div> : null }
-            <Users  totalUsersCount={props.totalUsersCount} 
-                        pageSize={props.pageSize} 
-                        currentPage={props.currentPage} 
+      { isFetching ? <div className={classes.usersPreloader}><Preloader /></div> : null }
+            <Users  totalUsersCount={totalUsersCount} 
+                        pageSize={pageSize} 
+                        currentPage={currentPage} 
                         onPageChanged={onPageChanged}
-                        users={props.users}
-                        follow={props.follow}
-                        unfollow={props.unfollow}
-                        followingInProgress={props.followingInProgress}
+                        users={users}
+                        follow={follow}
+                        unfollow={unfollow}
+                        followingInProgress={followingInProgress}
             />
          </>
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
    return {
       users: getUsers(state),
       pageSize: getPageSize(state),

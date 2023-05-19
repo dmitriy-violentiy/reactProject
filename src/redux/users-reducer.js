@@ -28,7 +28,7 @@ const usersReducer = (state = initialState, action) => {
             return users
          } )}    
       case UNFOLLOW:
-         return {...state, users: state.users.map( users =>  {   //map создает новый массив на основе старого, элементами которого будут те же users 
+         return {...state, users: state.users.map( users =>  {
             if (users.id === action.userId) {
                return {...users, followed: false}
             }
@@ -121,17 +121,6 @@ export const requestUsers = (page, pageSize) => {     //создали thunkCrea
          dispatch(setTotalUsersCount(data.totalCount))
    }
 }
-
-//рефакторинг. Объединение follow и unfollow в один элемент
-/* const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
-   dispatch(toggleFollowingProgress(true, userId))
-   let response = await apiMethod(userId)  //обращаемся через thunk
-      //запрос на подписку
-   if (response.data.resultCode == 0) {   //data и resultCode посмотрели в документации API. Условие если сервер подтвердил подписку
-      dispatch(actionCreator(userId))
-   }
-   dispatch(toggleFollowingProgress(false, userId))
-} */
 
 export const follow = (userId) => {
    return async (dispatch) => {

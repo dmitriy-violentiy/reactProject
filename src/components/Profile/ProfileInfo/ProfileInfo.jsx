@@ -4,6 +4,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 import userPhoto from "../../../assets/images/avatar.png"
 import ProfileDataForm from "./ProfileDataForm";
+import ProfileData from "./ProfileData";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
    
@@ -38,42 +39,16 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
             </div>
 
             <div className={classes.profileInfo__wrap}>
-            <div className={classes.descriptionBlock__status}>
-               <ProfileStatus status={status} updateStatus={updateStatus}/>
-            </div>
-
-            { editMode ? <ProfileDataForm initialValues={profile.aboutMe} profile={profile} onSubmit={onSubmit}/> 
-            : <ProfileData goToEditMode={() => {setEditMode(true)}} profile={profile} isOwner={isOwner}/> }
-            
+               <div className={classes.descriptionBlock__status}>
+                  <ProfileStatus status={status} updateStatus={updateStatus}/>
+               </div>
+               { editMode ? <ProfileDataForm initialValues={profile.aboutMe} profile={profile} onSubmit={onSubmit}/> 
+               : <ProfileData goToEditMode={() => {setEditMode(true)}} profile={profile} isOwner={isOwner}/> }
             </div>
             
          </div>
       </div>
    )
 }
-
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
-   return (
-      <div>
-         <div>
-            <b>Name:</b> {profile.fullName}
-         </div>
-         <div>
-            <div><b>A job status:</b> { profile.lookingForAJob ? 'looking for work' : 'not looking for a job' } </div>
-         </div>
-         <div>
-            <b>My professional skills:</b> { profile.lookingForAJobDescription }
-         </div>
-         <div>
-            <b>About me:</b> {profile.aboutMe}
-         </div>
-         { isOwner && <div><button onClick={goToEditMode} className={classes.descriptionBlock__changeInfoButton}>Change personal information</button></div> }
-      </div>
-   )
-}
-
-/* const Contact = ({contactTitle, contactValue}) => {
-   return <div className={classes.contact}><b>{contactTitle}</b>: {contactValue}</div>
-} */
 
 export default ProfileInfo;
